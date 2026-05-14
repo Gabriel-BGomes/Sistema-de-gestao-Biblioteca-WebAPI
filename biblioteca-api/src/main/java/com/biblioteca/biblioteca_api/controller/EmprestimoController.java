@@ -36,5 +36,11 @@ public class EmprestimoController {
         return emprestimoService.listarTodos();
     }
     
+    @PutMapping("/{id}/devolver")
+    public Emprestimo devolver(
+            @PathVariable Long id) {
+
+        return emprestimoService.devolverLivro(id);
+    }
     
 }

@@ -68,4 +68,19 @@ public class EmprestimoService {
     public List<Emprestimo> listarTodos() {
         return emprestimoRepository.findAll();      
     }
+
+    @Transactional
+    public Emprestimo devolverLivro(Long id) {
+        Emprestimo emprestimo = emprestimoRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
+        if (emprestimo.getStatus() != StatusEmprestimo.EMPRESTADO) {
+            throw new RuntimeException("Empréstimo já devolvido.");
+        }
+        emprestimo.setStatus(StatusEmprestimo.DEVOLVIDO);
+        Livro livro = emprestimo.getLivro();
+        livro.setDisponivel(true);
+        livroRepository.save(livro);
+        return emprestimoRepository.save(emprestimo);
+
+    }
 }
