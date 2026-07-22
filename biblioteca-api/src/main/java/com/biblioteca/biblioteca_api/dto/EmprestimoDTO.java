@@ -19,4 +19,11 @@ public class EmprestimoDTO {
     public Long getLivroId() {
         return livroId;
     }
+    public void setUsuarioId(Long usuarioId) {
+    this.usuarioId = usuarioId;
+    }
+
+    public void setLivroId(Long livroId) {
+        this.livroId = livroId;
+    }
 }

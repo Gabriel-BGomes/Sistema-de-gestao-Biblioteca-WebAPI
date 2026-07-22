@@ -2,6 +2,7 @@ package com.biblioteca.biblioteca_api.service;
 
 import com.biblioteca.biblioteca_api.dto.UsuarioDTO;
 import com.biblioteca.biblioteca_api.entity.Usuario;
+import com.biblioteca.biblioteca_api.exception.RegraNegocioException;
 import com.biblioteca.biblioteca_api.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,19 @@ public class UsuarioService {
 
     public UsuarioDTO salvar(
             UsuarioDTO dto) {
+        if (usuarioRepository
+                .findByEmail(dto.getEmail())
+                .isPresent()) {
 
+            throw new RegraNegocioException(
+                    "Email já cadastrado");
+        } else if (usuarioRepository
+                .findByTelefone(dto.getTelefone())
+                .isPresent()) {
+
+            throw new RegraNegocioException(
+                    "Telefone já cadastrado");
+        }
         Usuario usuario = new Usuario();
 
         usuario.setNome(dto.getNome());

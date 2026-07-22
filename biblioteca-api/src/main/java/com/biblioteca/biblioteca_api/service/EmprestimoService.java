@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import com.biblioteca.biblioteca_api.repository.LivroRepository;
 import com.biblioteca.biblioteca_api.entity.Emprestimo;
 import com.biblioteca.biblioteca_api.entity.Usuario;
+import com.biblioteca.biblioteca_api.exception.RegraNegocioException;
 import com.biblioteca.biblioteca_api.entity.Livro;
 import com.biblioteca.biblioteca_api.entity.StatusEmprestimo;
 import com.biblioteca.biblioteca_api.dto.EmprestimoDTO;
@@ -43,15 +44,15 @@ public class EmprestimoService {
             Usuario usuario = 
                 usuarioRepository.findById(dto.getUsuarioId())
                     .orElseThrow(() -> 
-                    new RuntimeException(
+                    new RegraNegocioException(
                         "Usuário não encontrado"));
             Livro livro = 
                 livroRepository.findById(dto.getLivroId())
                     .orElseThrow(() -> 
-                    new RuntimeException(
+                    new RegraNegocioException(
                         "Livro não encontrado"));
             if (!livro.getDisponivel()) {
-                throw new RuntimeException(
+                throw new RegraNegocioException(
                     "Livro indisponível para empréstimo");
             }
             Emprestimo emprestimo = new Emprestimo();
@@ -72,10 +73,11 @@ public class EmprestimoService {
     @Transactional
     public Emprestimo devolverLivro(Long id) {
         Emprestimo emprestimo = emprestimoRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
+            .orElseThrow(() -> new RegraNegocioException("Empréstimo não encontrado"));
         if (emprestimo.getStatus() != StatusEmprestimo.EMPRESTADO) {
-            throw new RuntimeException("Empréstimo já devolvido.");
+            throw new RegraNegocioException("Empréstimo já devolvido.");
         }
+        
         emprestimo.setStatus(StatusEmprestimo.DEVOLVIDO);
         Livro livro = emprestimo.getLivro();
         livro.setDisponivel(true);
