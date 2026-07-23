@@ -272,7 +272,7 @@ Sistema-de-gestao-Biblioteca-WebAPI/
 
 ## 👨‍💻 Autor
 
-**Gabriel Braga**
+**Gabriel Braga Gomes**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Gabriel%20Braga-blue)](https://www.linkedin.com/in/ogabrielbraga/)
 [![GitHub](https://img.shields.io/badge/GitHub-Gabriel--BGomes-black)](https://github.com/Gabriel-BGomes)
