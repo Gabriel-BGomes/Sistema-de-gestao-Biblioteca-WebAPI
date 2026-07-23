@@ -7,10 +7,13 @@ import Emprestimos from './pages/Emprestimos'
 function App() {
   return (
     <BrowserRouter>
-      <nav>
-        <Link to="/livros">Livros</Link>
-        <Link to="/usuarios">Usuarios</Link>
-        <Link to="/emprestimos">Emprestimos</Link>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+        <span className="navbar-brand">API Biblioteca</span>
+        <div className="navbar-nav">
+          <Link className="nav-link text-white" to="/livros">Livros</Link>
+          <Link className="nav-link text-white" to="/usuarios">Usuários</Link>
+          <Link className="nav-link text-white" to="/emprestimos">Empréstimos</Link>
+        </div>
       </nav>
 
       <Routes>

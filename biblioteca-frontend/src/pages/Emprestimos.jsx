@@ -53,40 +53,57 @@ function cadastrarEmprestimos(){
     }, [])
 
     return(
-        <div>
-            <h1>Emprestimos</h1>
-            <div className="CadastroEmprestimo">
-                <label htmlFor="" className="IDLivro">ID Livro:</label>
-                <input className="IDLivro" type="text" value={livroId} onChange={e => setLivroId(e.target.value)}/>
-
-                <label htmlFor="" className="IDUsuario">ID Usuario:</label>
-                <input className="IDUsuario" type="text" value={usuarioId} onChange={e => setUsuarioId(e.target.value)}/>
-
-                <button className="BtnCadastrar" onClick={cadastrarEmprestimos}>Cadastrar</button>
-
-                <button className="BtnVoltar" onClick={() => navigate('/')}>
-                    Voltar
-                </button>
+        <div className="card mb-4">
+          <div className="card-body">
+            <h1 className="mb-4">Emprestimos</h1>
+            <div className="CadastroEmprestimos"></div>
+                <h5 className="card-title">Cadastrar Emprestimos:</h5>
+                <div className="row">
+                    <div className="col">
+                    <input className="form-control" type="text" placeholder="ID Livro:" value={livroId} onChange={e => setLivroId(e.target.value)}/>
+                    </div>
+                    <div className="col">
+                        <input className="form-control" type="text" placeholder="Digite o ID Usuario:" value={usuarioId} onChange={e => setUsuarioId(e.target.value)}/>
+                    </div>
+                </div>
+                <div className="d-grid gap-2 col-6 mx-auto">
+                    <button className="btn btn-primary mt-3" type="button" onClick={cadastrarEmprestimos}>Cadastrar</button>
+                    <button className="btn btn-primary mt-3" type="button" onClick={() => navigate('/')}>Voltar</button>
+                </div> 
             </div>
-            <h1>Lista de Usuarios:</h1>
             <div className="ListaEmprestimos">
-                <ul>
+                <table className="table table-striped">
+                    <thead className="table-dark">
+                        <tr>
+                        <th>Nome</th>
+                        <th>Título do livro</th>
+                        <th>Data do emprestimo</th>
+                        <th>Data prevista para devolução</th>
+                        <th>Status</th>
+                        <th>Devolver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     {emprestimos.map(emprestimo => (
-                    <li key={emprestimo.id}>
-                        {emprestimo.usuario.nome} — {emprestimo.livro.titulo} — {emprestimo.status} — {emprestimo.dataEmprestimo} — {emprestimo.dataPrevistaDevolucao} 
-                        {emprestimo.status === 'EMPRESTADO' && (
+                    <tr key={emprestimo.id}>
+                        <td>{emprestimo.usuario.nome}</td>
+                        <td>{emprestimo.livro.titulo}</td>
+                        <td>{emprestimo.dataEmprestimo}</td>
+                        <td>{emprestimo.dataPrevistaDevolucao}</td>
+                        <td>{emprestimo.status}</td>
+                        <td>{emprestimo.status === 'EMPRESTADO' && (
                         confirmandoId === emprestimo.id
-                            ? <button onClick={() => devolverEmprestimos(emprestimo.id)}>Confirmar</button>
-                            : <button onClick={() => {
+                            ? <button className="btn btn-warning btn-sm" onClick={() => devolverEmprestimos(emprestimo.id)}>Confirmar</button>
+                            : <button className="btn btn-danger btn-sm" onClick={() => {
                                 setConfirmandoId(emprestimo.id)
                                 setTimeout(() => setConfirmandoId(null), 5000)
                             }}>Devolver</button>
-                        )}
-                    </li>
+                        )}</td>
+                    </tr>
                     ))}
-                </ul>
+                    </tbody>
+                </table>
             </div>
-
         </div>
     )
 }

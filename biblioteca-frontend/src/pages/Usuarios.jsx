@@ -42,38 +42,53 @@ function cadastrarUsuario(){
       .then(data => setUsuarios(data))
 }, [])
     return (
-        <div>
-            <h1>Usuarios</h1>
+        <div className="card mb-4">
+          <div className="card-body">
+            <h1 className="mb-4">Usuarios</h1>
             <div className="CadastroUsuarios">
-                <h3>Cadastrar Usuarios:</h3>
-                <div className="InputsCadastroUsuarios">
-                    <label>Digite o nome do usuário:</label>
-                    <input className="nome_usuario" type="text" value={nome} onChange={e => setNome(e.target.value)}/>
-
-                    <label>Digite o email do usuario:</label>
-                    <input className="email_usuario" type="text" value={email} onChange={e => setEmail(e.target.value)}/>
-
-                    <label className="">Digite o telefone:</label>
-                    <input className="telefone_usuario" type="text" value={telefone} onChange={e => setTelefone(e.target.value)}/>
+              <h5 className="card-title">Cadastrar Usuarios:</h5>
+              <div className="row g-3">
+                <div className="col-md-4">
+                  <input className="form-control" type="text" placeholder="Digite o nome do usuário:" value={nome} onChange={e => setNome(e.target.value)}/>
                 </div>
-                <button className="BtnCadastrar" type="button" onClick={cadastrarUsuario}>
+                <div className="col-md-4">
+                  <input className="form-control" type="text" placeholder="Digite o email do usuario:" value={email} onChange={e => setEmail(e.target.value)}/>
+                </div>
+                <div className="col-md-4">
+                  <input className="form-control" type="text" placeholder="Digite o telefone:" value={telefone} onChange={e => setTelefone(e.target.value)}/>
+                </div>
+              </div> 
+              <div className="d-grid gap-2 col-6 mx-auto">
+                <button className="btn btn-primary mt-3" type="button" onClick={cadastrarUsuario}>
                     Cadastrar
                 </button>
-                <button className="BtnVoltar" onClick={() => navigate('/')}>
+                <button className="btn btn-primary mt-3" onClick={() => navigate('/')}>
                     Voltar
                 </button>
+                </div>
             </div>
             <h1>Lista de Usuarios:</h1>
-            <div className="ListaUsuarios">
-                <ul>
+            <table className="table table-striped">
+              <thead className="table-dark">
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Telefone</th>
+                </tr>
+              </thead>
+              <tbody>
                     {usuarios.map(usuarios => (
-                    <li key={usuarios.id}>
-                    {usuarios.nome} — {usuarios.email} — {usuarios.telefone}
-                    </li>
+                    <tr key={usuarios.id}>
+                    <td>{usuarios.nome}</td>
+                    <td>{usuarios.email}</td> 
+                    <td>{usuarios.telefone}</td>
+                    </tr>
                     ))}
-                </ul>
-            </div>
-        </div>
+                
+            </tbody>
+    </table>
+    </div>
+  </div>
     )
 }
 

@@ -36,41 +36,53 @@ function cadastrarLivro() {
       .then(data => setLivros(data))
   }, [])
 
-  return (
-    <div>
-      <h1>Livros</h1>
-      <div className="CadastroLivros">
-        <h3>Cadastrar Livros:</h3>
-        <div className="InputsCadastroLivros">
-          <label>Digite o título do livro:</label>
-          <input className="titulo_livro" type="text" value={titulo} onChange={e => setTitulo(e.target.value)}/>
+return (
+  <div className="container mt-4">
+    <h1 className="mb-4">Livros</h1>
 
-          <label>Digite o nome do autor do livro:</label>
-          <input className="autor_livro" type="text" value={autor} onChange={e => setAutor(e.target.value)}/>
-
-          <label className="">Digite o isbn do livro:</label>
-          <input className="isbn_livro" type="text" value={isbn} onChange={e => setIsbn(e.target.value)}/>
+    <div className="card mb-4">
+      <div className="card-body">
+        <h5 className="card-title">Cadastrar Livros:</h5>
+        <div className="row g-3">
+          <div className="col-md-4">
+            <input className="form-control" type="text" placeholder="Título" value={titulo} onChange={e => setTitulo(e.target.value)}/>
+          </div>
+          <div className="col-md-4">
+            <input className="form-control" type="text" placeholder="Autor" value={autor} onChange={e => setAutor(e.target.value)}/>
+          </div>
+          <div className="col-md-4">
+            <input className="form-control" type="text" placeholder="ISBN" value={isbn} onChange={e => setIsbn(e.target.value)}/>
+          </div>
         </div>
-        <button className="BtnCadastrar" type="button" onClick={cadastrarLivro}>
-          Cadastrar
-        </button>
-        <button className="BtnVoltar" onClick={() => navigate ('/')}>
-          Voltar
-        </button>
-      </div>
-
-      <div className="ListaLivros">
-        <h3>Livros Cadastrados</h3>
-        <ul>
-          {livros.map(livro => (
-            <li key={livro.id}>
-              {livro.titulo} — {livro.autor}
-            </li>
-          ))}
-        </ul>
+        <div className="d-grid gap-2 col-6 mx-auto">
+        <button className="btn btn-primary mt-3" onClick={cadastrarLivro}>Cadastrar</button>
+        <button className="btn btn-primary mt-3" onClick={() => navigate('/')}>Voltar</button>
+        </div>
       </div>
     </div>
-  )
+
+    <table className="table table-striped">
+      <thead className="table-dark">
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>ISBN</th>
+          <th>Disponível</th>
+        </tr>
+      </thead>
+      <tbody>
+        {livros.map(livro => (
+          <tr key={livro.id}>
+            <td>{livro.titulo}</td>
+            <td>{livro.autor}</td>
+            <td>{livro.isbn}</td>
+            <td>{livro.disponivel ? '✅' : '❌'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)
 }
 
 export default Livros
